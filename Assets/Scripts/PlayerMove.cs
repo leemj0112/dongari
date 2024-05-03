@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -12,9 +13,18 @@ public class PlayerMove : MonoBehaviour
          PlayerRigid = GetComponent<Rigidbody2D>();
     }
 
+    private void Update()
+    {
+        //속도 멈춤
+        if (Input.GetButtonUp("Horizontal"))
+        {
+            PlayerRigid.velocity = new Vector2(PlayerRigid.velocity.normalized.x * 0.5f, PlayerRigid.velocity.y);
+        }
+    }
+
     private void FixedUpdate()
     {
-        //키에 따른 움직임 컨트롤
+        //움직임 속도
         float h = Input.GetAxisRaw("Horizontal");
         PlayerRigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
 
